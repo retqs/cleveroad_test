@@ -25,7 +25,9 @@ function ProductDetail() {
         sale: 0,
         saleEndDate: ''
     });
-    
+    const d = new Date(Date.now());
+    const minDate = new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0]
+
     const [errors, setErrors] = useState({});
     
     const handleChange = useCallback((e) => {
@@ -193,7 +195,7 @@ function ProductDetail() {
                         onChange={handleChange}
                         errors={errors}
                         disabled={+formValue.sale === 0}
-                        min={moment(Date.now()).format('L')}
+                        min={minDate}
                     ></InputField>
 
                     <SubmitBtn type='submit'>
