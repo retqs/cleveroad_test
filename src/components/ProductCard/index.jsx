@@ -98,6 +98,7 @@ const CardContent = styled.div``;
 const CardTitle = styled.h2`
     font-weight: 400;
     font-size: 1.2rem;
+    word-break: break-word;
 `;
 
 const CardDescription = styled.p`
