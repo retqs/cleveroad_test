@@ -13,7 +13,7 @@ function ProductCard({product}) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const withSale = getDaysUntil(product.saleEndDate) !== 0 && product.sale !== 0;
+    const withSale = getDaysUntil(product.saleEndDate) !== 0 && product.sale >= 10;
 
     return (
         <Card>
@@ -103,6 +103,7 @@ const CardTitle = styled.h2`
 
 const CardDescription = styled.p`
     margin: 10px 0;
+    word-break: break-word;
 `;
 
 const CardButtons = styled.div`

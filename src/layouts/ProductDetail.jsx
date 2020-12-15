@@ -5,9 +5,8 @@ import {useHistory, useParams} from 'react-router-dom'
 
 import {ReactComponent as ArrowLeft} from '../assets/icons/leftArrow.svg'
 import DBController from '../utils/dbController';
-import InputField from '../components/shared/InputField.component'
-import Textarea from '../components/shared/Textarea.component'
-import moment from 'moment'
+import InputField from '../components/shared/InputField.component';
+import Textarea from '../components/shared/Textarea.component';
 import {storage} from '../utils';
 import styled from 'styled-components';
 import {useDispatch} from 'react-redux'
@@ -25,8 +24,10 @@ function ProductDetail() {
         sale: 0,
         saleEndDate: ''
     });
+    
     const d = new Date(Date.now());
-    const minDate = new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000).toISOString().split('T')[0]
+    d.setDate(new Date().getDate() + 1);
+    const minDate = new Date(d.getTime() - d.getTimezoneOffset() * 120 * 1000).toISOString().split('T')[0];
 
     const [errors, setErrors] = useState({});
     
@@ -37,7 +38,7 @@ function ProductDetail() {
         
         if(target.type === 'file') {
             const MIN_SIZE = 200;
-            const MAX_SIZE = 3000;
+            const MAX_SIZE = 4000;
 
             const file = target.files[0];
             const img = new Image();
@@ -51,6 +52,7 @@ function ProductDetail() {
                     const fileRef = storage.child(file.name);
                     await fileRef.put(file); 
                     const fileUrl = await fileRef.getDownloadURL();
+                    
                     setErrors({...errors, image: null});
                     setFormValue({
                         ...formValue,
@@ -101,6 +103,9 @@ function ProductDetail() {
         Object.entries(formValue).forEach(([key,value]) => {
             if(key === 'title') {
                 value.length <= 20 && (errorsObj.title = "Should be between 20 and 60");
+            } else if(key === 'price') {
+                value >= 99999999.99 && (errorsObj.price = 'Price Should be less than 99999999.99');
+                // max='9999999999'
             } else if(key === 'image') {
                 value.length === 0 && (errorsObj.image = "Image required");
             } else if(key === 'price') {
@@ -169,7 +174,7 @@ function ProductDetail() {
                                 value={formValue.price}
                                 onChange={handleChange}
                                 errors={errors}
-                                max='9999999999'
+                     
                                 min='0'
                             ></InputField>
                         </FormCol>

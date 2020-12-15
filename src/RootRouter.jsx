@@ -48,9 +48,9 @@ function RootRouter() {
 
     useEffect(() => {
 
-        auth.onAuthStateChanged(userAuth => {
-            if(userAuth !== null) localStorage.setItem('token', userAuth.uid);
-        });
+        // auth.onAuthStateChanged(userAuth => {
+        //     if(userAuth !== null) localStorage.setItem('token', userAuth.uid);
+        // });
 
     },[dispatch]);
     

@@ -1,3 +1,5 @@
+import * as actionTypes from '../store/actions/actionTypes'
+
 import {Button, Container} from '../assets/styles'
 import React,{useCallback, useState} from 'react'
 import {clearErrors, requestRegister} from '../store/actions/authActions'
@@ -13,7 +15,8 @@ function SignUp() {
     const [formValue, setFormValue] = useState({
         name: '',
         email: '',
-        password: ''
+        password: '',
+        password_repeat: ''
     })
 
     const handleChange = useCallback((e) => {
@@ -59,8 +62,16 @@ function SignUp() {
                     onChange={handleChange}
                     errors={{}}
                 ></InputField>
+                <InputField 
+                    name='password_repeat'
+                    label="Repeat Your Password"
+                    type='password'
+                    value={formValue.password_repeat}
+                    onChange={handleChange}
+                    errors={{}}
+                ></InputField>
                 {error && <FormError>{error}</FormError>}
-                <SubmitBtn>
+                <SubmitBtn type='submit'>
                     Sign Up
                 </SubmitBtn>
             </Form>

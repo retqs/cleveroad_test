@@ -52,7 +52,7 @@ function SignIn() {
                     errors={{}}
                 ></InputField>
                 {error && <FormError>{error}</FormError>}
-                <SubmitBtn>
+                <SubmitBtn type='submit'>
                     Log in
                 </SubmitBtn>
             </Form>

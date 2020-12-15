@@ -21,15 +21,22 @@ export const requestToken = (formValue) => async (dispatch) => {
 };
 
 export const requestRegister = (formValue) => async (dispatch) => {
-    const {email,password} = formValue;
+    const {email,password,password_repeat} = formValue;
 
     try {
-        const {user} = await auth.createUserWithEmailAndPassword(email,password);
-
-        dispatch({
-            type: actionTypes.REQUEST_TOKEN,
-            payload: user.uid
-        });
+        
+        if(password !== password_repeat) {
+            dispatch({
+                type: actionTypes.REQUEST_SET_AUTH_ERROR,
+                payload: "Passwords didn't match"
+            });
+        } else {
+            const {user} = await auth.createUserWithEmailAndPassword(email,password);
+            dispatch({
+                type: actionTypes.REQUEST_TOKEN,
+                payload: user.uid
+            }) 
+        }
     } catch (error) {
         dispatch({
             type: actionTypes.REQUEST_SET_AUTH_ERROR,
