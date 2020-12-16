@@ -1,5 +1,3 @@
-import * as actionTypes from '../store/actions/actionTypes'
-
 import {Button, Container} from '../assets/styles'
 import React,{useCallback, useState} from 'react'
 import {clearErrors, requestRegister} from '../store/actions/authActions'

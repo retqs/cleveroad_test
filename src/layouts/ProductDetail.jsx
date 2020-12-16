@@ -106,11 +106,12 @@ function ProductDetail() {
             } else if(key === 'price') {
                 value >= 99999999.99 && (errorsObj.price = 'Price Should be less than 99999999.99');
                 // max='9999999999'
+                value < 1 && (errorsObj.price = "Price required");
+                console.log(value);
+                !/^\d+(\.\d{1,2})?$/.test(value) && (errorsObj.price = 'Price format should be with two trailing number 999.99') 
             } else if(key === 'image') {
                 value.length === 0 && (errorsObj.image = "Image required");
-            } else if(key === 'price') {
-                value < 1 && (errorsObj.price = "Price required");
-            } else if(key === 'saleEndDate') {
+            }  else if(key === 'saleEndDate') {
                 formValue.sale > 1 && value.length === 0 && (errorsObj.saleEndDate = "Sale End Day Required"); 
             }
         });
